@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CES211 CBT — 100 Questions</title>
+<style>
+:root {
+  --bg:#f4f7fb; --card:#fff; --text:#172033; --muted:#687386;
+  --primary:#2457d6; --primary2:#173b99; --border:#dfe5ef;
+  --good:#16834b; --bad:#c83b4b; --shadow:0 10px 30px rgba(20,35,70,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button{font:inherit;cursor:pointer}
+.app{max-width:1050px;margin:auto;padding:22px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:18px}
+.brand{font-weight:800;font-size:20px}
+.badge{font-size:13px;background:#eaf0ff;color:var(--primary2);padding:7px 11px;border-radius:999px;font-weight:700}
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;box-shadow:var(--shadow);padding:26px}
+.hidden{display:none!important}
+h1{margin:0 0 10px;font-size:32px}
+h2{margin:0 0 12px}
+p{line-height:1.6}
+.center{text-align:center}
+.hero{padding:45px 25px}
+.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:800;background:var(--primary);color:white}
+.btn:hover{background:var(--primary2)}
+.btn.secondary{background:#e9edf5;color:var(--text)}
+.btn.danger{background:#c83b4b}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:22px}
+.submit-row{margin-top:12px}
+.submit-row .btn{width:100%}
+.course{border:2px solid var(--primary);background:#f3f6ff;padding:18px;border-radius:14px;margin:20px auto;max-width:420px}
+.instructions{text-align:left;max-width:700px;margin:20px auto}
+.instructions li{margin:10px 0}
+.timer{font-variant-numeric:tabular-nums;font-weight:900;font-size:24px;background:#111827;color:#fff;padding:9px 14px;border-radius:11px}
+.examhead{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:15px}
+.progress{height:8px;background:#e7ebf2;border-radius:99px;overflow:hidden;margin-bottom:20px}
+.progress>div{height:100%;background:var(--primary);width:0}
+.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:14px;margin-bottom:9px}
+.question{font-size:22px;font-weight:800;line-height:1.4;margin:15px 0 20px}
+.option{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--border);border-radius:12px;padding:14px;margin:10px 0;background:#fff;transition:.15s}
+.option:hover{border-color:#9eb2e9;background:#f8faff}
+.option input{margin-top:4px;transform:scale(1.15)}
+.option.selected{border-color:var(--primary);background:#eef3ff}
+.grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:20px}
+.grid button{border:1px solid var(--border);background:white;border-radius:8px;padding:8px 0;font-weight:700}
+.grid button.current{background:var(--primary);color:#fff;border-color:var(--primary)}
+.grid button.answered{box-shadow:inset 0 -3px 0 var(--good)}
+.legend{font-size:12px;color:var(--muted);margin-top:8px}
+.score{font-size:58px;font-weight:900;margin:10px 0}
+.review{margin-top:20px}
+.review-item{border:1px solid var(--border);border-radius:14px;padding:16px;margin:12px 0;background:#fff}
+.review-item.correct{border-left:5px solid var(--good)}
+.review-item.wrong{border-left:5px solid var(--bad)}
+.small{font-size:13px;color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:20px 0}
+.kpi{background:#f7f9fc;border:1px solid var(--border);padding:15px;border-radius:12px;text-align:center}
+.kpi strong{display:block;font-size:24px}
+@media(max-width:650px) {
+ .app{padding:12px} .card{padding:18px} h1{font-size:27px}
+ .question{font-size:19px} .grid{grid-template-columns:repeat(5,1fr)}
+ .examhead{align-items:flex-start} .timer{font-size:19px}
+ .kpis{grid-template-columns:1fr} .actions{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div class="brand">CES211 CBT</div>
+    <div class="badge">100 Questions • 50:00</div>
+  </div>
+
+  <section id="home" class="card hero center">
+    <h1>Entrepreneurship, Innovation & Venture Creation</h1>
+    <p>Computer-Based Test — CES211</p>
+    <div class="course"><strong>SELECT COURSE</strong><br><span style="font-size:25px">CES211</span></div>
+    <button class="btn" onclick="showInstructions()">Continue</button>
+  </section>
+
+  <section id="instructions" class="card hidden">
+    <div style="border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:18px">
+      <div style="background:#f4f6f8;border-bottom:1px solid var(--border);padding:13px 16px;font-weight:800;letter-spacing:.3px">
+        COMPUTER BASED TEST — EXAMINATION INSTRUCTIONS
+      </div>
+      <div class="instructions" style="padding:18px">
+        <p style="margin-top:0"><strong>CES 211 — ENTREPRENEURSHIP, INNOVATION &amp; VENTURE CREATION</strong></p>
+        <ol>
+          <li>This examination contains <strong>100 multiple-choice questions</strong>.</li>
+          <li>Each question has four options: <strong>A, B, C and D</strong>.</li>
+          <li><strong>Choose the answer that best suits the question.</strong></li>
+          <li>You are allowed <strong>50 minutes</strong> to complete the examination.</li>
+          <li>Use <strong>Next</strong> to proceed to the next question and <strong>Previous</strong> to return to the preceding question.</li>
+          <li>You may use the <strong>Question Grid</strong> to move directly to any question.</li>
+          <li>Your selected answer is retained when you move between questions.</li>
+          <li>Answered questions are indicated on the question grid.</li>
+          <li>You may review and change your answers before final submission.</li>
+          <li>When you have completed the examination, click <strong>SUBMIT EXAM</strong>.</li>
+          <li>Do not submit until you have reviewed your answers. After submission, answers cannot be changed.</li>
+          <li>When the allotted time expires, the system will <strong>automatically submit the examination</strong>.</li>
+          <li>Your score and question-by-question review will be displayed after submission.</li>
+        </ol>
+        <p style="margin-bottom:0"><strong>IMPORTANT:</strong> Read each question carefully before selecting your answer.</p>
+      </div>
+    </div>
+    <div class="center"><button class="btn" onclick="startExam()">START EXAM</button></div>
+  </section>
+
+  <section id="exam" class="hidden">
+    <div class="card">
+      <div class="examhead">
+        <div><strong id="chapter"></strong><div class="small" id="counter"></div></div>
+        <div id="timer" class="timer">50:00</div>
+      </div>
+      <div class="progress"><div id="progress"></div></div>
+      <div class="meta"><span id="answeredText">0 answered</span><span>50:00 total</span></div>
+      <div id="question" class="question"></div>
+      <div id="options"></div>
+
+      <div class="actions">
+        <button class="btn secondary" onclick="previousQuestion()">← PREVIOUS</button>
+        <button class="btn secondary" onclick="nextQuestion()">NEXT →</button>
+      </div>
+      <div class="submit-row">
+        <button class="btn danger" onclick="submitExam(false)">SUBMIT EXAM</button>
+      </div>
+
+      <hr style="border:0;border-top:1px solid var(--border);margin:25px 0 16px">
+      <strong>QUESTION GRID</strong>
+      <div id="grid" class="grid"></div>
+      <div class="legend">Blue = current question • Green line = answered</div>
+    </div>
+  </section>
+
+  <section id="result" class="card hidden center">
+    <h1>RESULT</h1>
+    <p>Your CES211 CBT has been submitted.</p>
+    <div id="score" class="score">0%</div>
+    <div class="kpis">
+      <div class="kpi"><strong id="correctKpi">0</strong>Correct</div>
+      <div class="kpi"><strong id="wrongKpi">0</strong>Wrong</div>
+      <div class="kpi"><strong id="unansweredKpi">0</strong>Unanswered</div>
+    </div>
+    <p id="resultMessage"></p>
+    <div class="actions">
+      <button class="btn secondary" onclick="restartExam()">RETAKE EXAM</button>
+      <button class="btn" onclick="showReview()">REVIEW ANSWERS</button>
+    </div>
+    <div id="review" class="review hidden"></div>
+  </section>
+</div>
+
+<script>
+const QUESTIONS = [{"chapter":"CHAPTER 1","source":"Q3","question":"Which strategy is most directly consistent with broadening knowledge and developing life-long skills?","options":["Engaging in diverse learning experiences while using relevant guidance and discussion","Restricting learning to a single textbook","Avoiding mentors because independent study is always superior","Limiting participation to formal examinations"],"answer":0},{"chapter":"CHAPTER 1","source":"Q4","question":"What is the primary benefit of incorporating entrepreneurship education across all academic levels?","options":["It makes entrepreneurship relevant only to business students","It mainly increases students’ academic workload","It cultivates an entrepreneurial mindset from a young age","It removes the need for career planning"],"answer":2},{"chapter":"CHAPTER 1","source":"Q5","question":"Which approach is NOT a key recommendation for improving entrepreneurship education?","options":["Ensuring entrepreneurship lecturers are adequately trained","Providing more hands-on entrepreneurial experiences","Extending entrepreneurship education across academic levels","Reducing the focus on practical, real-world applications"],"answer":3},{"chapter":"CHAPTER 1","source":"Q6","question":"Entrepreneurship education can influence career aspirations primarily by increasing students’ perceived:","options":["salary and promotion certainty","desirability and feasibility of entrepreneurship","dependence on traditional employers","need to avoid entrepreneurial risk"],"answer":1},{"chapter":"CHAPTER 1","source":"Q7","question":"Which factor is identified as a primary driver behind the shift from traditional career paths toward entrepreneurship and alternative employment?","options":["Job dissatisfaction and the desire for better work-life balance","Pressure from family and friends","Lack of entrepreneurial skills and mindset","A guaranteed shortage of all traditional jobs"],"answer":0},{"chapter":"CHAPTER 1","source":"Q8","question":"How does entrepreneurship education address the evolving needs of the modern job market?","options":["By concentrating only on theoretical knowledge","By preparing students for one fixed career path","By equipping individuals with an entrepreneurial mindset and adaptable skills","By reducing exposure to changing workplace demands"],"answer":2},{"chapter":"CHAPTER 1","source":"Q9","question":"Which option is NOT a key benefit of entrepreneurship education in reducing dependence on traditional job-seeking?","options":["Developing entrepreneurial skills","Fostering an entrepreneurial mindset","Providing students with guaranteed job placements","Empowering self-employment and job creation"],"answer":2},{"chapter":"CHAPTER 1","source":"Q10","question":"What is the primary role of entrepreneurship education in the 21st century?","options":["Preparing students exclusively for traditional employment","Fostering innovation and adaptability in the workforce","Discouraging students from pursuing entrepreneurial ventures","Maintaining the status quo in the job market"],"answer":1},{"chapter":"CHAPTER 2","source":"Q27","question":"Which of the following is NOT one of the schools of thought identified under the economic theory of entrepreneurship?","options":["Locus of control","Classicalist","Neo-classicalist","Austrian Market Process"],"answer":0},{"chapter":"CHAPTER 2","source":"Q28","question":"The view that free trade, specialization and competition are major drivers of entrepreneurship is associated with the:","options":["Austrian Market Process","Classicalist school","Neo-classicalist school","Keynesian school"],"answer":0},{"chapter":"CHAPTER 2","source":"Q29","question":"Pure exchange, optimal ratio and the economic system are presented as issues affecting entrepreneurship under the:","options":["Austrian Market Process","Classicalist school","Neo-classicalist school","Keynesian school"],"answer":2},{"chapter":"CHAPTER 2","source":"Q30","question":"Which combination best represents the three main psychological traits discussed in the entrepreneurship theory section?","options":["Personality traits, need for achievement and locus of control","Profit motive, market share and taxation","Social belief, religion and culture","Risk capital, technology and infrastructure"],"answer":0},{"chapter":"CHAPTER 2","source":"Q31","question":"The need-for-achievement concept cited in the entrepreneurship material is attributed to:","options":["Rotter (1966)","Schumpeter (1934)","Obi (2021)","McClelland (1961)"],"answer":3},{"chapter":"CHAPTER 2","source":"Q33","question":"The locus-of-control psychological trait is based primarily on:","options":["the individual’s perception","the community’s perception","the individual’s perception of success only","society’s legal structure"],"answer":0},{"chapter":"CHAPTER 2","source":"Q37","question":"The opportunity-based theory of entrepreneurship is traced in the material to:","options":["Drucker (1985)","Reynolds (2021)","Drucker (2021)","Reynolds (1981)"],"answer":0},{"chapter":"CHAPTER 2","source":"Q38","question":"The statement “Entrepreneurs do not cause change but exploit change” is attributed in the material to:","options":["Drucker (1985)","Reynolds (2021)","Drucker (2021)","Reynolds (1981)"],"answer":0},{"chapter":"CHAPTER 2","source":"Q44","question":"Under anthropological theory, entrepreneurial success is affected by the following EXCEPT:","options":["Customs","Taboos","Religious belief","Policies"],"answer":3},{"chapter":"CHAPTER 2","source":"Q48","question":"The statement that loss of prestige can create entrepreneurial aggressiveness is attributed to:","options":["sociological theory","anthropological theory","status withdrawal theory","economic theory"],"answer":2},{"chapter":"CHAPTER 3","source":"Q14","question":"Which form of thinking is most directly concerned with the ability to judge or discern?","options":["Critical thinking","Creative thinking","Reflective thinking","Imaginative thinking"],"answer":0},{"chapter":"CHAPTER 3","source":"Q19","question":"Which type of thinking considers the larger context, meaning and implications of an experience or action?","options":["Critical thinking","Reflective thinking","Creative thinking","Imaginative thinking"],"answer":1},{"chapter":"CHAPTER 3","source":"Q24","question":"Reflective thinking essentially involves how many processes according to the material?","options":["One","Three","Four","Five"],"answer":1},{"chapter":"CHAPTER 3","source":"Q29","question":"The ability to come up with unique, original solutions is best described as:","options":["Critical thinking","Creative thinking","Reflective thinking","Imaginative thinking"],"answer":1},{"chapter":"CHAPTER 3","source":"Q35","question":"Which set correctly states the three levels of reflective thinking given in the material?","options":["Technical, deliberative and critical rationality","Technical, deliberative and rationality","Technical, descriptive and critical rationality","Technical, reflective and critical rationality"],"answer":0},{"chapter":"CHAPTER 3","source":"Q37","question":"The process of bringing about new ideas, methods, products, services or solutions that create significant positive impact is:","options":["Creativity","Entrepreneurship","Innovation","Creative mindset"],"answer":2},{"chapter":"CHAPTER 3","source":"Q41","question":"A new idea, process or product, or a change to an existing one that adds value, is identified as:","options":["Creativity","Entrepreneurship","Innovation","Creative mindset"],"answer":2},{"chapter":"CHAPTER 3","source":"Q43","question":"Which type of innovation is described as using new technology with a high-impact result?","options":["Racial innovation","Disruptive innovation","Incremental innovation","Radical innovation"],"answer":3},{"chapter":"CHAPTER 3","source":"Q45","question":"A gradual, continuous improvement of existing products and services is:","options":["Incremental innovation","Disruptive innovation","Radical innovation","Sustaining innovation"],"answer":0},{"chapter":"CHAPTER 3","source":"Q48","question":"A technological breakthrough that transforms industries and creates new markets is described as:","options":["Sustaining innovation","Disruptive innovation","Radical innovation","Incremental innovation"],"answer":1},{"chapter":"CHAPTER 4","source":"Q8","question":"What distinguishes artists from cultural entrepreneurs in the material?","options":["Artists focus more on cultural production, while cultural entrepreneurs distribute products/services along the cultural value chain","Artists operate only for profit, while cultural entrepreneurs never consider profit","Artists manage government agencies, while cultural entrepreneurs manage banks","Artists create products, while cultural entrepreneurs are restricted to performing arts"],"answer":0},{"chapter":"CHAPTER 4","source":"Q9","question":"A process that begins with a cultural idea and leads to a cultural business is:","options":["Cultural entrepreneurship","Innovative mind","Innovative entrepreneurship","Creator/innovator"],"answer":0},{"chapter":"CHAPTER 4","source":"Q13","question":"Which of the following is an objective of entrepreneurship support institutions?","options":["Acting as catalysts for small businesses and national development","Serving as vehicles for promoting government policies","Supporting broader trade and enterprise development","All of the above"],"answer":3},{"chapter":"CHAPTER 4","source":"Q14","question":"NEPZA stands for:","options":["National Export Processing Zones Authority","Nigerian Export Processing Zones Authority","National Exporting Processing Zones Agency","Nigerian Exporting Processing Zones Authority"],"answer":1},{"chapter":"CHAPTER 4","source":"Q15","question":"NIPC stands for:","options":["National Investment Promotion Council","National Investment Promotion Commission","Nigerian Investment Promotion Council","National Investment Promotion Corporation"],"answer":1},{"chapter":"CHAPTER 4","source":"Q16","question":"SNEPC represents the:","options":["National Export Promotion Council","Nigerian Export Promotion Council","Nigerian Exporting Promoting Council","Nigerian Export Promotion Commission"],"answer":1},{"chapter":"CHAPTER 4","source":"Q20","question":"In Nigeria, which bank was established to provide access to export financing for potential manufacturing exporters and export merchants?","options":["Export Bank","Nigerian Export-Import Bank","Import-Export Bank Council","Nigerian Development Bank"],"answer":1},{"chapter":"CHAPTER 4","source":"Q22","question":"The Federal Government established which body as a central organisation to encourage the growth of non-oil exports?","options":["National Export Promotion Council","Nigerian Export Promotion Committee","Nigerian Export Promotion Council","National Export Processing Council"],"answer":2},{"chapter":"CHAPTER 4","source":"Q23","question":"Which institution was established to draw foreign direct investment to Nigeria?","options":["Nigerian Investment Commission","National Investment Commission","Nigerian Investment Promotion Commission","National Investment Promotion Council"],"answer":2},{"chapter":"CHAPTER 4","source":"Q24","question":"Which institution was created a few years after the new Nigerian Export Promotion Council commenced operation?","options":["Nigerian Processing Zones Authority","National Export Processing Authority","Nigerian Export Processing Zones Authority","Nigerian Export Authority"],"answer":2},{"chapter":"CHAPTER 5","source":"Q7","question":"The success of a firm largely depends on:","options":["the size of the company alone","the implementation of its business development strategy","the type of goods it offers alone","the company’s location alone"],"answer":1},{"chapter":"CHAPTER 5","source":"Q8","question":"Business planning should be:","options":["separated from strategic planning","informed by strategic planning","ignored in new business development","the only focus of new business development"],"answer":1},{"chapter":"CHAPTER 5","source":"Q9","question":"Market research helps a company to:","options":["ignore market dynamics","react strategically to market dynamics","focus only on internal affairs","avoid taking any business risk"],"answer":1},{"chapter":"CHAPTER 5","source":"Q10","question":"Risk assessment in new business development is best viewed as:","options":["unnecessary once a business plan exists","solely the responsibility of the new-business manager","a joint effort between management and other critical business divisions","an exercise focused only on financial risks"],"answer":2},{"chapter":"CHAPTER 5","source":"Q12","question":"A critical component of the risk-assessment framework is:","options":["analysing financial statements only","analysing risks connected to new business opportunities","analysing competitors’ strategies only","analysing internal communication strategies only"],"answer":1},{"chapter":"CHAPTER 5","source":"Q13","question":"Comprehensive market research helps a company understand:","options":["only its financial limitations","the “playing field” and the “game plan”","only the preferences of current customers","only the latest technology trends"],"answer":1},{"chapter":"CHAPTER 5","source":"Q14","question":"The growth strategy of a company should be developed through:","options":["guesswork and speculation","customer complaints alone","strategic planning principles","competitor analysis only"],"answer":2},{"chapter":"CHAPTER 5","source":"Q21","question":"A business plan is important because it helps managers:","options":["set objectives and strategies","establish businesses only","prepare tax returns only","avoid making strategic decisions"],"answer":0},{"chapter":"CHAPTER 5","source":"Q24","question":"A well-written business plan creates credibility by making a project:","options":["less understandable","compelling and credible","uninteresting to investors","overly complex"],"answer":1},{"chapter":"CHAPTER 5","source":"Q25","question":"Because the business environment is dynamic, a business plan should help a firm to:","options":["confuse potential prospects","introduce the company to unfamiliar sectors regardless of fit","remain unchanged over time","adapt while maintaining strategic direction"],"answer":3},{"chapter":"CHAPTER 6","source":"Q2","question":"Which quality is specifically identified as an important attribute of effective leaders?","options":["Physical strength","Emotional intelligence","Wealth","Formal education"],"answer":1},{"chapter":"CHAPTER 6","source":"Q3","question":"Transformational leadership is most closely associated with encouraging:","options":["innovation","routine","punishment","isolation"],"answer":0},{"chapter":"CHAPTER 6","source":"Q6","question":"A transformational leader is expected to:","options":["punish followers","ignore team input","foster innovation","focus only on routine"],"answer":2},{"chapter":"CHAPTER 6","source":"Q7","question":"Transactional leadership is primarily associated with:","options":["emotional intelligence","rewards and punishments","vision and change","autonomy"],"answer":1},{"chapter":"CHAPTER 6","source":"Q13","question":"Situational leadership requires leaders to:","options":["adjust their styles","stick to one style","ignore team needs","focus on routine"],"answer":0},{"chapter":"CHAPTER 6","source":"Q14","question":"Henri Fayol proposed how many elements of management in the formulation used in the material?","options":["Five","Four","Three","Six"],"answer":0},{"chapter":"CHAPTER 6","source":"Q22","question":"Bookkeeping records primarily capture:","options":["personal goals","income and expenses","cash only","team motivation"],"answer":1},{"chapter":"CHAPTER 6","source":"Q28","question":"Double-entry bookkeeping is distinguished because transactions are:","options":["recorded only when cash changes hands","recorded with corresponding debit and credit entries","recorded only once in a cashbook","used only for fixed assets"],"answer":1},{"chapter":"CHAPTER 6","source":"Q38","question":"Financial statements in the material are prepared on a:","options":["monthly","daily","yearly","weekly"],"answer":0},{"chapter":"CHAPTER 6","source":"Q49","question":"Bank reconciliation is intended to:","options":["motivate teams","harmonize bank and book records","set business goals","organize resources"],"answer":1},{"chapter":"CHAPTER 6","source":"Q57","question":"One challenge family businesses commonly face concerns:","options":["quick decision-making","succession planning","market expansion only","limited resources only"],"answer":1},{"chapter":"CHAPTER 6","source":"Q77","question":"Family business management involves balancing:","options":["personal relationships only","family councils only","family and professional management","long-term planning only"],"answer":2},{"chapter":"CHAPTER 7","source":"Q1","question":"Negotiation is fundamentally concerned with identifying and agreeing on the:","options":["terms of an agreement","objective of a company","structure of a market","size of a business"],"answer":0},{"chapter":"CHAPTER 7","source":"Q4","question":"Businesses negotiate internally and externally mainly to allocate:","options":["bulk goods","resources","materials only","factors of production only"],"answer":1},{"chapter":"CHAPTER 7","source":"Q6","question":"Interactive bargaining focuses on expanding the “pie” of resources in order to:","options":["create value","create money","avert money","create rules"],"answer":0},{"chapter":"CHAPTER 7","source":"Q7","question":"Bargaining that is competitive or zero-sum is also known as:","options":["interactive negotiation","distributive negotiation","game negotiation","theory negotiation"],"answer":1},{"chapter":"CHAPTER 7","source":"Q8","question":"A model describing strategic interaction between rational decision-makers is:","options":["Distributive Theory","Game Theory","Book Theory","Major Theory"],"answer":1},{"chapter":"CHAPTER 7","source":"Q12","question":"A negotiation that revolves around one issue is regarded as:","options":["single-issue focus","double-out focus","west-issue focus","multi-issue focus"],"answer":0},{"chapter":"CHAPTER 7","source":"Q14","question":"Interactive bargaining can also be referred to as:","options":["win-win negotiation","mark negotiation","upper negotiation","serious bargaining"],"answer":0},{"chapter":"CHAPTER 7","source":"Q29","question":"The last stage in the communication process is identified as:","options":["sender","receiver","message","feedback"],"answer":3},{"chapter":"CHAPTER 7","source":"Q40","question":"Multi-party negotiation involves:","options":["two parties only","one party","more than two parties or groups","only government parties"],"answer":2},{"chapter":"CHAPTER 7","source":"Q44","question":"Negotiation conducted through electronic means is known as:","options":["E-Negotiation","B-Negotiation","M-Negotiation","N-Negotiation"],"answer":0},{"chapter":"CHAPTER 8","source":"Q4","question":"The three types of trade credit identified in the material are:","options":["short-term, medium-term and long-term","short-term, quasi-short-term and long-term","open account, trade acceptance and promissory notes","all of the above"],"answer":2},{"chapter":"CHAPTER 8","source":"Q5","question":"Undistributed earnings arising from the normal operations of an enterprise are:","options":["savings","personal savings","retained earnings","capital"],"answer":2},{"chapter":"CHAPTER 8","source":"Q6","question":"Funds generated outside the enterprise are referred to as:","options":["external source of finance","internal source of finance","quasi source of finance","retained source of finance"],"answer":0},{"chapter":"CHAPTER 8","source":"Q12","question":"Financing obtained for a period exceeding five to ten years is termed:","options":["long-term","short-term","medium-term","internal-term"],"answer":0},{"chapter":"CHAPTER 8","source":"Q13","question":"When finance is obtained for more than one year but not more than five years, it is termed:","options":["internal-term","short-term","medium-term","long-term"],"answer":2},{"chapter":"CHAPTER 8","source":"Q18","question":"An equity investment where investors expect significant capital gains while accepting the possibility of losing their equity is:","options":["interest","loans","venture capital","loan interest"],"answer":2},{"chapter":"CHAPTER 8","source":"Q21","question":"A group of investors willing to invest in enterprises too small to gain support from traditional venture capitalists are:","options":["business partners","micro-finance institutions","funders","business angels"],"answer":3},{"chapter":"CHAPTER 8","source":"Q22","question":"An entrepreneurial finance source that can provide small funds for less-costly machinery, equipment, technology and raw materials is:","options":["loans","funders","micro-finance","trade credits"],"answer":2},{"chapter":"CHAPTER 8","source":"Q26","question":"A documented line of action highlighting how an enterprise seeks to achieve its goals is a:","options":["business partner agreement","business plan competition","business plan","feasibility study"],"answer":2},{"chapter":"CHAPTER 8","source":"Q30","question":"Another term used to describe business plan competitions in the original question is:","options":["Business plan","Feasibility study","Business Accelerator","None of the above"],"answer":3},{"chapter":"CHAPTER 9","source":"Q4","question":"Which of the following is NOT one of the 5Cs of e-commerce as presented in the material?","options":["Collaboration","Communication","Connection","Competition"],"answer":3},{"chapter":"CHAPTER 9","source":"Q5","question":"The exchange of information, products or services between a business and a consumer is:","options":["B2B","B2G","B2C","C2C"],"answer":2},{"chapter":"CHAPTER 9","source":"Q6","question":"Online transactions that take place between businesses are classified as:","options":["B2G","B2C","B2B","C2C"],"answer":2},{"chapter":"CHAPTER 9","source":"Q7","question":"Which is identified as a disadvantage associated with e-commerce?","options":["Cultural issues","Legal issues","Difficulty in calculating return on investment","All of the above"],"answer":3},{"chapter":"CHAPTER 9","source":"Q25","question":"Extra service features that give additional benefits to the buyer are associated with the:","options":["core product","supportive product only","augmented product","price component"],"answer":2},{"chapter":"CHAPTER 9","source":"Q29","question":"Which of the following is NOT a pricing strategy listed in the material?","options":["cost-oriented pricing","competition-oriented pricing","demand-oriented pricing","none of the above"],"answer":3},{"chapter":"CHAPTER 9","source":"Q30","question":"A pricing strategy that considers customers’ perception of the product’s worth is:","options":["cost-oriented pricing","competition-oriented pricing","demand-oriented pricing","production-oriented pricing"],"answer":2},{"chapter":"CHAPTER 9","source":"Q31","question":"Which element of the traditional marketing mix is described as producing revenue?","options":["product","promotion","place","price"],"answer":3},{"chapter":"CHAPTER 9","source":"Q38","question":"Which group is included in the extended marketing mix?","options":["people only","process only","physical evidence only","all of the above"],"answer":3},{"chapter":"CHAPTER 9","source":"Q44","question":"The philosophy suggesting buyers will gravitate toward readily available and reasonably priced goods is the:","options":["marketing concept","selling concept","product concept","production concept"],"answer":3},{"chapter":"CHAPTER 10","source":"Q14","question":"Which statement best captures both a potential benefit and a challenge of implementing IoT in manufacturing?","options":["IoT removes the need for maintenance and data governance","IoT provides benefits only and creates no integration concerns","IoT is limited to advertising and has no operational applications","Higher efficiency and predictive maintenance can be benefits, while integration and data-security costs can be challenges"],"answer":3},{"chapter":"CHAPTER 10","source":"Q15","question":"How can blockchain technology enhance supply-chain management?","options":["By preventing all supply-chain costs","By eliminating all intermediaries automatically","By replacing every logistics system with advertising","By improving transparency and traceability"],"answer":3},{"chapter":"CHAPTER 10","source":"Q16","question":"Which comparison between AR and VR is consistent with the material?","options":["VR is limited to accounting while AR is limited to gaming","AR always creates a fully immersive virtual world, while VR only overlays labels","AR and VR are identical technologies with different names","AR overlays digital information on the real world, while VR creates an immersive virtual environment"],"answer":3},{"chapter":"CHAPTER 10","source":"Q17","question":"When choosing a cloud-computing provider, a business should consider:","options":["support options only","vendor reputation only","privacy only","security, reliability, scalability and cost"],"answer":3},{"chapter":"CHAPTER 10","source":"Q18","question":"How can data analytics help identify new business opportunities?","options":["By avoiding analysis of market conditions","By eliminating the need for customer information","By focusing only on internal payroll records","By analysing customer behaviour and preferences and identifying market trends and gaps"],"answer":3},{"chapter":"CHAPTER 10","source":"Q19","question":"Which pair represents ethical implications of AI decision-making identified in the material?","options":["Customer segmentation and promotion","Faster processing and lower costs","Improved storage and scalability","Bias and privacy concerns"],"answer":3},{"chapter":"CHAPTER 10","source":"Q21","question":"Which set includes potential risks associated with cloud computing?","options":["Improved collaboration and software updates","Scalability, flexibility and accessibility","Automatic cost savings and zero downtime","Data breaches, security vulnerabilities, service outages, vendor lock-in and data loss"],"answer":3},{"chapter":"CHAPTER 10","source":"Q25","question":"Which combination represents challenges of implementing AI in healthcare?","options":["Only improved patient outcomes","Only faster diagnosis and lower costs","Only easier access to research data","Data privacy concerns, ethical considerations, algorithmic bias and high costs/expertise requirements"],"answer":3},{"chapter":"CHAPTER 10","source":"Q28","question":"Digital disruption refers most closely to:","options":["a business plan that remains unchanged as technology evolves","a routine change to office stationery","the elimination of all competition through regulation","rapid technological changes that disrupt industries and markets and create pressure for adaptation"],"answer":3},{"chapter":"CHAPTER 10","source":"Q29","question":"Entrepreneurs can leverage technology to create competitive advantage by:","options":["reducing all investment in digital capabilities","using technology only for internal accounting","avoiding customer feedback","developing innovative products, improving operational efficiency and enhancing customer experience"],"answer":3}];
+let current = 0;
+let answers = Array(QUESTIONS.length).fill(null);
+let seconds = 50 * 60;
+let timerHandle = null;
+let submitted = false;
+
+function $(id) { return document.getElementById(id); }
+
+function showInstructions() {
+  $('home').classList.add('hidden');
+  $('instructions').classList.remove('hidden');
+}
+
+function startExam() {
+  $('instructions').classList.add('hidden');
+  $('result').classList.add('hidden');
+  $('exam').classList.remove('hidden');
+  current = 0; seconds = 50 * 60; submitted = false;
+  answers = Array(QUESTIONS.length).fill(null);
+  render();
+  clearInterval(timerHandle);
+  timerHandle = setInterval(tick, 1000);
+}
+
+function tick() {
+  seconds--;
+  updateTimer();
+  if (seconds <= 0) submitExam(true);
+}
+
+function updateTimer() {
+  const m = Math.floor(seconds / 60).toString().padStart(2,'0');
+  const s = (seconds % 60).toString().padStart(2,'0');
+  $('timer').textContent = `${m}:${s}`;
+  $('timer').style.background = seconds <= 300 ? '#b42335' : '#111827';
+}
+
+function render() {
+  const q = QUESTIONS[current];
+  $('chapter').textContent = q.chapter;
+  $('counter').textContent = `Question ${current+1} of ${QUESTIONS.length}`;
+  $('question').textContent = `${current+1}. ${q.question}`;
+  $('progress').style.width = `${((current+1)/QUESTIONS.length)*100}%`;
+  const letters = ['A','B','C','D'];
+  $('options').innerHTML = q.options.map((opt,i) => `
+    <label class="option ${answers[current]===i?'selected':''}">
+      <input type="radio" name="answer" value="${i}" ${answers[current]===i?'checked':''}
+        onchange="selectAnswer(${i})">
+      <span><strong>(${letters[i]})</strong> ${escapeHtml(opt)}</span>
+    </label>`).join('');
+  $('answeredText').textContent = `${answers.filter(x=>x!==null).length} answered`;
+  renderGrid();
+  updateTimer();
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function selectAnswer(i) {
+  answers[current] = i;
+  render();
+}
+
+function nextQuestion() {
+  if (current < QUESTIONS.length-1) { current++; render(); }
+  else { alert('You are on Question 100. Click SUBMIT when you are ready.'); }
+}
+
+function previousQuestion() {
+  if (current > 0) { current--; render(); }
+}
+
+function renderGrid() {
+  $('grid').innerHTML = QUESTIONS.map((q,i) =>
+    `<button class="${i===current?'current ':''}${answers[i]!==null?'answered':''}" onclick="jumpTo(${i})">${i+1}</button>`
+  ).join('');
+}
+
+function jumpTo(i) { current=i; render(); }
+
+function submitExam(autoSubmit) {
+  if (submitted) return;
+  if (!autoSubmit) {
+    const unanswered = answers.filter(x=>x===null).length;
+    const msg = unanswered
+      ? `You still have ${unanswered} unanswered question(s). Submit anyway?`
+      : 'Submit your exam now?';
+    if (!confirm(msg)) return;
+  }
+  submitted = true;
+  clearInterval(timerHandle);
+
+  let correct=0;
+  QUESTIONS.forEach((q,i)=>{ if(answers[i]===q.answer) correct++; });
+  const wrong = answers.filter((a,i)=>a!==null && a!==QUESTIONS[i].answer).length;
+  const unanswered = answers.filter(a=>a===null).length;
+  const pct = Math.round((correct/QUESTIONS.length)*100);
+
+  $('exam').classList.add('hidden');
+  $('result').classList.remove('hidden');
+  $('score').textContent = `${pct}%`;
+  $('correctKpi').textContent = correct;
+  $('wrongKpi').textContent = wrong;
+  $('unansweredKpi').textContent = unanswered;
+  $('resultMessage').textContent = autoSubmit
+    ? 'Time expired. Your answers were submitted automatically.'
+    : 'Your answers have been recorded. Review the questions below.';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function showReview() {
+  const letters=['A','B','C','D'];
+  const box=$('review');
+  box.classList.remove('hidden');
+  box.innerHTML=QUESTIONS.map((q,i)=>{
+    const user=answers[i];
+    const ok=user===q.answer;
+    const userText=user===null?'Unanswered':`(${letters[user]}) ${escapeHtml(q.options[user])}`;
+    const correctText=`(${letters[q.answer]}) ${escapeHtml(q.options[q.answer])}`;
+    return `<div class="reviewItem ${ok?'correct':'wrong'}"><strong>Question ${i+1}</strong><br>${escapeHtml(q.question)}<br><b>Your answer:</b> ${userText}<br><b>Correct answer:</b> ${correctText}</div>`;
+  }).join('');
+}
+
+function restartExam() {
+  $('result').classList.add('hidden');
+  $('instructions').classList.remove('hidden');
+  $('review').classList.add('hidden');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
